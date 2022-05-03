@@ -1,4 +1,4 @@
-- hosts: 192.168.11.189
+- hosts: fortilab
   collections:
     - fortinet.fortios
   connection: httpapi
