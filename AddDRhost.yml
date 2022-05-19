@@ -2,7 +2,7 @@
   tasks:
     - name: Add DR IP to etc hosts
       lineinfile:
-        path: "/home/penjaga/aa"
+        path: "/etc/hosts"
         line: "{{ item }}"
         state: present
         backup: yes
