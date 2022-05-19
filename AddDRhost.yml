@@ -1,7 +1,6 @@
 - name: host file update - Local DNS setup across all the servers
     hosts: server
     tasks:
-
     - name: Add DR IP to etc hosts
       lineinfile:
         path: "/etc/hosts"
