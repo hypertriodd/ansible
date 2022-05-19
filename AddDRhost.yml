@@ -5,6 +5,7 @@
         path: "/etc/hosts"
         line: "{{ item }}"
         state: present
+        insertafter: EOF
         backup: yes
       with_items:
         - '10.200.1.202	ds1-db-01.ccc.digiserve.id'
