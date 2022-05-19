@@ -4,7 +4,6 @@
     - name: Add DR IP to etc hosts
       lineinfile:
         path: "/etc/hosts"
-        regexp: "{{ item.regexp }}"
         line: "{{ item }}"
         state: present
         backup: yes
