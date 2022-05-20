@@ -7,5 +7,5 @@
         state: present
         backup: yes
       with_items:
-        - '10.200.1.202	ds1-db-01.ccc.digiserve.id'
-        - '10.200.1.202	ds1-db-slave.ccc.digiserve.id'
+        - '10.200.1.202	ds1-db-01.ccc.digiserve.idw'
+        - '10.200.1.202	ds1-db-slave.ccc.digiserve.ids'
