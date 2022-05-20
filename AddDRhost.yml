@@ -2,8 +2,9 @@
   tasks:
     - name: Add DR IP to etc hosts
       lineinfile:
-        path: "/home/penjaga/aa"
-        line: "{{ item }}"
+        path: "/home/penjaga/bb"
+        line: "{{ item }}"i
+        insertbefore: BOF
         state: present
         backup: yes
       with_items:
