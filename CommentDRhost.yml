@@ -1,9 +1,7 @@
-- hosts: server
+- hosts: LabServer
   tasks:
     - name: Comment DR IP to etc hosts
-      lineinfile:
-        path: "/etc/hosts"
-        regexp: "^10.200.1.202"
-        replace: "#\1"
-        state: present
-        backup: yes
+      replace:
+        path: /etc/hosts
+        regexp: '^#10.200.1.202'
+        replace: '10.200.1.202'
