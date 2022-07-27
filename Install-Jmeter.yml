@@ -1,0 +1,49 @@
+- hosts: all
+  tasks:
+  - name: Install Java
+    become: yes
+    ansible.builtin.yum:
+     name: java-1.8.0-openjdk
+     state: present
+  - name: Download jmeter
+    ansible.builtin.get_url:
+     url: https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz
+     mode: '0440'
+     dest: /home/penjaga/
+     validate_certs: no
+  - name: unarchive jmeter to /opt
+    become: yes
+    ansible.builtin.unarchive:
+     src: /home/penjaga/apache-jmeter-5.5.tgz
+     dest: /opt/
+     remote_src: yes
+     mode: '0440'
+  - name: download plugin manager
+    become: yes
+    ansible.builtin.get_url:
+     url: https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.7/jmeter-plugins-manager-1.7.jar
+     mode: '0440'
+     dest: /opt/apache-jmeter-5.5/lib/ext/
+     validate_certs: no
+  - name: Copy jmeter plugin manager
+    become: yes
+    ansible.builtin.shell: java -cp apache-jmeter-5.5/lib/ext/jmeter-plugins-manager-1.7.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
+    args:
+     chdir: /opt/
+  - name: download cmdrunner
+    become: yes
+    ansible.builtin.get_url:
+     url: http://search.maven.org/remotecontent?filepath=kg/apc/cmdrunner/2.2/cmdrunner-2.2.jar
+     mode: '0440'
+     dest: /opt/apache-jmeter-5.5/lib/
+     validate_certs: no
+  - name: copy jmeter properties
+    become: yes
+    ansible.builtin.copy:
+     src: /opt/apache-jmeter-5.5/bin/jmeter.properties
+     dest: /opt/bin/
+  - name: install jmeter addons
+    become: yes
+    ansible.builtin.shell: ./PluginsManagerCMD.sh install jpgc-fifo,jpgc-dummy,jpgc-tst,jpgc-functions,jpgc-ffw,jpgc-casutg,jpgc-perfmon,jpgc-graphs-basic,jpgc-dummy
+    args:
+     chdir: /opt/apache-jmeter-5.5/bin
